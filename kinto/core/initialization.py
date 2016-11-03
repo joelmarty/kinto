@@ -72,6 +72,10 @@ def setup_version_redirection(config):
         return
 
     def _redirect_to_version_view(request):
+        if request.method.lower() == 'options':
+            from pyramid.response import Response
+            return Response()
+
         path = request.matchdict['path']
         querystring = request.url[(request.url.rindex(request.path) +
                                    len(request.path)):]
